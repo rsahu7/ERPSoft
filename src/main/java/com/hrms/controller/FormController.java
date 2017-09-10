@@ -487,23 +487,4 @@ public class FormController {
     	return "importexcel";
     }
     
-   @RequestMapping(value = "/createRFQ", method = RequestMethod.GET)
-	 public String createRFQPage(Model model, HttpServletRequest request)
-	{
-      
-	      LoginBean objA = (LoginBean) _applicationContext.getBean("loginDetails");
-	      if(!objA.isLogin()){
-	           return "redirect:/login";
-	       }
-     
-	       
-	     String redirectPage = "RFQ";
-	     //request.getSession().setAttribute("prevURL", request.getSession().getAttribute("currURL"));
-         /*request.getSession().setAttribute("currURL", "/add/"+formName);
-         request.getSession().setAttribute("prevURL","/form/list/"+formName);*/
-	      
-	       return redirectPage;   
-      }
-
-
 }
