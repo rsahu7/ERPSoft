@@ -1,0 +1,119 @@
+--CREATE SUPPLIER TABLE
+create table supplier
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+name varchar(1000),
+creationdate datetime ,
+code varchar(100),
+emailid varchar(200),
+contactno varchar(100),
+designation varchar(200),
+country varchar(200),
+address varchar(2000),
+zipcode varchar(100),
+payment varchar(200),
+shortname varchar(200),
+website varchar(500),
+region varchar(1000),
+telephone varchar(200),
+accountcode varchar(1000),
+fax varchar(200),
+contactperson varchar(2000),
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+--CREATE CUSTOMER TABLE
+
+create table customer
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+name varchar(1000),
+creationdate datetime ,
+code varchar(100),
+emailid varchar(200),
+contactno varchar(100),
+designation varchar(200),
+country varchar(200),
+address varchar(2000),
+zipcode varchar(100),
+payment varchar(200),
+shortname varchar(200),
+website varchar(500),
+region varchar(1000),
+telephone varchar(200),
+accountcode varchar(1000),
+fax varchar(200),
+contactperson varchar(2000),
+creditlimit varchar(1000),
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+---CREATE PROJECT TABLE
+create table project
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+creationdate datetime ,
+code varchar(100),
+projectno varchar(100),
+description varchar(2000),
+address varchar(2000),
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+----CREATE ITEM TABLE
+create table item
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+creationdate datetime ,
+code varchar(100),
+description varchar(2000),
+customerid int,
+avgcost numeric,
+costprice numeric,
+retailprice numeric,
+wholesaleprice numeric,
+uom varchar(200),
+primaryunit varchar(200),
+currentstock varchar(200),
+reservedstock varchar(200),
+minimumstock varchar(200),
+reorderlevel varchar(200),
+packingsize varchar(200),
+volume numeric,
+barcode varchar(200),
+customerbarcode varchar(2000),
+brandname varchar(200),
+wholesalemarkup numeric,
+retailmarkup numeric,
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+----CREATE NONINVENTORYITEM TABLE
+create table noninventoryitem
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+creationdate datetime ,
+code varchar(100),
+description varchar(2000),
+groupname varchar(200),
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+----CREATE WAREHOUSE TABLE
+create table warehouse
+(
+internalid int unsigned NOT NULL AUTO_INCREMENT,
+creationdate datetime ,
+code varchar(100),
+description varchar(2000),
+warehouseno int,
+address1 varchar(2000),
+address2 varchar(2000),
+address3 varchar(2000),
+primary key(internalid)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+
