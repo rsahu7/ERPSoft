@@ -1,0 +1,57 @@
+CREATE TABLE Employee1 (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
+  creationdate datetime ,
+  birthdate datetime ,
+  name varchar(100) ,
+  lastname varchar(100) ,
+  middlename varchar(100) ,
+  gender varchar(10) ,
+  maritialstatus varchar(50) ,
+  spousename varchar(100) ,
+  contact1 varchar(100) ,
+  contact2 varchar(100) ,
+  email varchar(100) ,
+  address varchar(1000) ,
+  city varchar(100) ,
+  state varchar(100),
+  education varchar(100) ,
+  exprience double(10,2) ,
+  designation varchar(100) ,
+  department varchar(100) ,
+  industry varchar(100) ,
+  salary double(10,2),
+  prefworkinterest varchar(100),
+  prefworkloc varchar(100) ,
+  expectedsal double(10,2) ,
+  worknature varchar(100) ,
+  areaofwork varchar(100) ,
+  resume varchar(100) ,
+  resumedate varchar(100) ,
+  docdetails varchar(100) ,
+  photo varchar(100) ,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+commit;
+
+
+ CREATE TABLE profile (
+  username varchar(50) ,
+  password varchar(50)
+  );
+
+
+  CREATE TABLE interview (
+	id int(11) unsigned NOT NULL AUTO_INCREMENT,
+	employee_id int(11) unsigned ,
+	company_name varchar(50) ,
+	department varchar(50) ,
+	position varchar(50) ,
+	inter_date datetime ,
+	status varchar(20) ,
+	remark varchar(100) ,
+	PRIMARY KEY (id),
+    INDEX par_ind (employee_id),
+    FOREIGN KEY (employee_id) REFERENCES employee1(id) ON DELETE CASCADE
+) ENGINE=INNODB;
+
+ALTER TABLE employee ADD COLUMN reference VARCHAR(50) AFTER areaofwork;
