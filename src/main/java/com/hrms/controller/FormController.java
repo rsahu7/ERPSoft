@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +27,12 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +48,8 @@ import com.hrms.model.Item;
 import com.hrms.model.LoginBean;
 import com.hrms.model.NonInventoryItem;
 import com.hrms.model.Project;
+import com.hrms.model.RFQ;
+import com.hrms.model.RFQItem;
 import com.hrms.model.Supplier;
 import com.hrms.model.Warehouse;
 import com.hrms.service.EmployeeService;
@@ -54,6 +62,13 @@ public class FormController {
 
 	@Autowired
 	private ApplicationContext _applicationContext;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	    sdf.setLenient(true);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
 
 	@Autowired(required=true)
 	@Qualifier(value="formService")
@@ -120,6 +135,24 @@ public class FormController {
 	      {
 	    	  model.addAttribute(formName, new Warehouse());
 	    	  redirectPage = "warehousedetails";
+	      }
+	      else if ("RFQ".equals(formName))
+	      {
+	    	  RFQ rfq = new RFQ();
+	    	  rfq.setRfqno(1);
+	    	  RFQItem item1 = new RFQItem();
+		      item1.setDescription("rfqitem3");
+		      item1.setQuantity("10");
+		      RFQItem item2 = new RFQItem();
+		      item2.setDescription("rfqitem4");
+		      item2.setQuantity("20");
+		      
+		      List<RFQItem> s = new ArrayList<RFQItem>();
+		      s.add(item1);
+		      s.add(item2);
+		      rfq.setItems(s);
+	    	  model.addAttribute(formName, rfq);
+	    	  redirectPage = "rfqdetails";
 	      }
 	      else
 	      {
@@ -327,6 +360,11 @@ public class FormController {
 	    	  model.addAttribute(formName, (Project)this.formService.getFormDatafromId(formName, Id));
 	    	  redirectPage = "projectdetails";
 	      }
+	      else if ("RFQ".equals(formName))
+	      {
+	    	  model.addAttribute(formName, (RFQ)this.formService.getFormDatafromId(formName, Id));
+	    	  redirectPage = "rfqdetails";
+	      }
 	      else
 	      {
 	    	  redirectPage = "home";
@@ -453,6 +491,14 @@ public class FormController {
     				}
     				w_formObj = ExcelBuilderMain.getCustomerObjectFromExcel(w_row, w_cus, w_addFlag);
     			}
+    			else if ("RFQ".equals(a_formName))
+    			{
+    				RFQItem w_item = null;
+    				w_item = new RFQItem();
+/*    				int maxSeqNum = formService.getMaxSequenceNumber(a_formName);*/
+    				
+    				w_formObj = ExcelBuilderMain.getRFQItemObjectFromExcel(w_row, w_item, w_addFlag);
+    			}
 				if (w_addFlag)
 				{
 					this.formService.addForm(w_formObj);
@@ -487,4 +533,59 @@ public class FormController {
     	return "importexcel";
     }
     
+    @RequestMapping(value = "/add/RFQs", method = RequestMethod.GET)
+	 public String getRFQ(@ModelAttribute("RFQ") RFQ obj, 
+			 HttpServletRequest request, HttpServletResponse response)
+	{
+    	System.out.println("in save rfq...");
+	      LoginBean objA = (LoginBean) _applicationContext.getBean("loginDetails");
+	      if(!objA.isLogin()){
+	           return "redirect:/login";
+	       }
+	      
+	      String redirectPage = "RFQ";
+	      
+	       return redirectPage;  
+	      
+	      /*RFQ rfq1 = new RFQ();
+	      rfq1.setRfqname("rfq2");
+	      
+	      RFQItem item1 = new RFQItem();
+	      item1.setDescription("rfqitem1");
+	      
+	      RFQItem item2 = new RFQItem();
+	      item2.setDescription("rfqitem2");
+	      
+	      Set<RFQItem> s = new HashSet();
+	      s.add(item1);
+	      s.add(item2);
+	      rfq1.setItems(s);
+	      formService.addForm(rfq1);
+	      
+ */
+  }
+    
+    @RequestMapping(value = "/add/RFQ", method = RequestMethod.POST)
+ 	 public String saveRFQ(@ModelAttribute("RFQ") RFQ obj, 
+ 			 HttpServletRequest request, HttpServletResponse response)
+ 	{
+     	System.out.println("in save rfq...");
+ 	      LoginBean objA = (LoginBean) _applicationContext.getBean("loginDetails");
+ 	      if(!objA.isLogin()){
+ 	           return "redirect:/login";
+ 	       }
+ 	      
+ 	      String redirectPage = "rfqdetails";
+ 	      
+ 	    if (obj.getId() == 0)
+ 	    {
+ 	     this.formService.addForm(obj);
+ 	    }
+ 	    else
+ 	    {
+ 	    	this.formService.updateForm(obj);
+ 	    }
+ 	       return redirectPage;   	      
+   }
+
 }

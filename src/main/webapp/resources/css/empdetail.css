@@ -205,3 +205,9 @@ form.empform .gray * {
 	#left-table table {
 	cellspacing : 30px;
 	}
+	
+#rfqitems{
+	width:100%;
+	float:left;
+	margin:5px;
+}

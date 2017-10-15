@@ -458,3 +458,7 @@ table.dataTable td {
     margin-top: 0.5em;
   }
 }
+
+#example tfoot {
+    display: table-header-group;
+}

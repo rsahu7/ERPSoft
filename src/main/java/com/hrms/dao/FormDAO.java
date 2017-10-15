@@ -1,5 +1,6 @@
 package com.hrms.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface FormDAO {
@@ -10,4 +11,5 @@ public interface FormDAO {
 	public void updateForm(Object p);
 	public void deleteForm(int id, String formName);
 	public int getMaxSequenceNumber(String formName);
+	public ArrayList getRfqItems();
 }

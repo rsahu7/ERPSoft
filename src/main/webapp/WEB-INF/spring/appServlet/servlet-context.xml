@@ -59,7 +59,11 @@
 				<beans:value>com.hrms.model.Project</beans:value>
 				<beans:value>com.hrms.model.Item</beans:value>
 				<beans:value>com.hrms.model.NonInventoryItem</beans:value>
-				<beans:value>com.hrms.model.Warehouse</beans:value>				
+				<beans:value>com.hrms.model.Warehouse</beans:value>
+				<beans:value>com.hrms.model.RFQItem</beans:value>	
+				<beans:value>com.hrms.model.RFQ</beans:value>
+				
+							
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

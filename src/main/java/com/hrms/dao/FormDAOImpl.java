@@ -1,9 +1,20 @@
 package com.hrms.dao;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -112,5 +123,124 @@ public class FormDAOImpl implements FormDAO
 			session.delete(obj);
 		}
 		logger.info("Employee deleted successfully, Employee details="+obj);
+	}
+	
+@Override
+	
+	public ArrayList getRfqItems() {
+	ArrayList ja=new ArrayList();
+	try{
+		InputStream ExcelFileToRead = new FileInputStream("D:/ERP/toroshan/4_P_1.xlsx"); 
+				XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead); 
+					
+		 		XSSFSheet sheet = wb.getSheetAt(3); 
+		 		XSSFRow row;  
+		 		XSSFCell cell; 
+		 		
+		 		ArrayList c=new ArrayList();
+		 		ArrayList h=new ArrayList();
+		 		ArrayList main=new ArrayList();
+		 		Iterator<Row> rows = sheet.rowIterator(); 
+		 		//ArrayList<String> header=new ArrayList<String>();
+		        
+		        int i=0;
+		 		while (rows.hasNext()) 
+		 		{ 
+		 			row=(XSSFRow) rows.next(); 
+		 			
+		 			Iterator<Cell> cells = row.cellIterator(); 
+		 			
+		 				while (cells.hasNext()) 
+			 			{ 
+		 					
+			 				cell=(XSSFCell) cells.next(); 
+			 				if(i!=0){
+			 				if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) 
+			 				{ 
+			 				c.add(cell.getStringCellValue());
+			 					
+			 				} 
+			 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) 
+			 				{ 
+			 					c.add(cell.getNumericCellValue());
+			 				} 
+			 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_BLANK) 
+			 				{ 
+			 					System.out.println("blank recvd");
+			 					c.add("demo");
+			 				}else{
+			 					
+			 				}
+			 				}
+			 				else{
+			 					
+			 					if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) 
+				 				{ 
+			 						h.add(cell.getStringCellValue());
+				 					
+				 				} 
+				 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) 
+				 				{ 
+				 					h.add(cell.getNumericCellValue());
+				 				} 
+				 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_BLANK) 
+				 				{ 
+				 					System.out.println("blank recvd");
+				 					h.add("demo");
+				 				}else{
+				 					
+				 				}
+			 				}
+			 				
+			 		
+			 			} 
+		 				//System.out.println("i"+i);
+		 		i++;
+		 				
+		 			}
+		 		
+		 			
+		 				//System.out.print(h);
+		 			
+		 		//	System.out.println();
+		 			
+		 				//System.out.print(c);
+		 			int hlen=h.size();
+		 			System.out.println("i ="+i +"hlen"+hlen);
+		 			//main.add(h);
+		 			main.add(c);
+		 			System.out.print(c);
+		 			System.out.println(c.size());
+		 			int p=0;
+		 			
+		 			while(p <c.size()-hlen){
+					
+						
+						HashMap dj=new HashMap();
+						dj.put("ItemReference", c.get(p));
+						dj.put("Description", c.get(p+2));
+						dj.put("UnitofMeasurement", c.get(p+3));
+						dj.put("Quantity", c.get(p+4));
+						dj.put("Unitprice", c.get(p+5));
+						dj.put("MinimumUnitPrice", c.get(p+6));
+						dj.put("MaximumUnitprice", c.get(p+7));
+						dj.put("Price", c.get(p+8));
+						ja.add(dj);
+						
+					p=p+hlen;
+					System.out.println(p);
+					
+		 			}
+		 			
+						
+	
+					
+		 		
+		}catch(Exception r){
+			r.printStackTrace();
+		}
+	return ja;
+		
+		
 	}
 }

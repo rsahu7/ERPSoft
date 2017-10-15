@@ -33,6 +33,7 @@ import com.hrms.model.Employee;
 import com.hrms.model.Item;
 import com.hrms.model.NonInventoryItem;
 import com.hrms.model.Project;
+import com.hrms.model.RFQItem;
 import com.hrms.model.Supplier;
 import com.hrms.model.Warehouse;
 import com.hrms.service.FormService;
@@ -446,5 +447,28 @@ public class ExcelBuilderMain extends AbstractExcelView{
 		}
 		return a_cus;
 	}
+	
+	public static RFQItem getRFQItemObjectFromExcel(Row w_row, RFQItem a_item, boolean a_addFlag)
+	{
+		int w_idx = 1;
+		//Sets the read data to the model class.
+		Date w_currentDate = new Date();
+		DataFormatter w_dataformat = new DataFormatter();
+		try
+		{
+			a_item.setDescription(w_dataformat.formatCellValue(w_row.getCell(w_idx++)));
+			a_item.setEmail(w_dataformat.formatCellValue(w_row.getCell(w_idx++)));
+			a_item.setQuantity(w_dataformat.formatCellValue(w_row.getCell(w_idx++)));
+			a_item.setUnit(w_dataformat.formatCellValue(w_row.getCell(w_idx++)));
 
+			if (a_addFlag)
+				a_item.setCreationdate(w_currentDate);//skip creationdate column
+		}
+		catch (Exception a_ex)
+		{
+			a_ex.printStackTrace();
+		}
+		return a_item;
+	}
+	
 }

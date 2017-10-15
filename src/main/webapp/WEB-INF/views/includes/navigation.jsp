@@ -40,8 +40,8 @@
 			</li>
 			<li><a href="${contextroot}"><span class="iconic home"></span>Purchase</a>
 				<ul class="submenu">
-					<li><a href="${contextroot}createRFQ">Create Quotation</a></li>
-					<li><a href="${contextroot}form/list/Customer">Create Purchase Order</a></li>
+					<li><a href="${contextroot}add/RFQ">Create Quotation</a></li>
+					<li><a href="${contextroot}form/list/RFQ">Edit Quotation</a></li>
 				</ul>
 			</li>
 			<li><a href="${contextroot}addemployee"><span class="iconic home"></span>Sales</a></li>

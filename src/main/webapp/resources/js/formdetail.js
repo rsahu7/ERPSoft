@@ -60,7 +60,7 @@ $(function() {
 
 		$('.datepick').each(function() {
 			$(this).datepicker({
-				dateFormat: "dd-mm-yy",
+				dateFormat: "dd/mm/yy",
 				changeMonth : true,
 				changeYear : true,
 				minDate: 0
