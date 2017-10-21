@@ -48,7 +48,7 @@ commit;
 	position varchar(50) ,
 	inter_date datetime ,
 	status varchar(20) ,
-	remark varchar(100) ,
+	remark varchar(100),
 	PRIMARY KEY (id),
     INDEX par_ind (employee_id),
     FOREIGN KEY (employee_id) REFERENCES employee1(id) ON DELETE CASCADE
