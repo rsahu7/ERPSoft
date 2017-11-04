@@ -118,6 +118,7 @@
 						<th>Quantity</th>
 						<c:if test="${RFQ.id > 0}">
 							<th>Email To</th>
+							<th>Supplier</th>
 						</c:if>
 					</tr>
 			
@@ -142,6 +143,14 @@
 				<td><form:input path="items[${vs.index}].quantity" /></td>
 				<c:if test="${RFQ.id > 0}">				
 					<td><form:input path="items[${vs.index}].email" /></td>
+					<td>
+						<c:set var = "salary" scope = "session" value = "${items[vs.index].email}"/>
+      					<c:out value = "${salary}"/>
+						<c:forEach items="${items[vs.index].rfqSuppliers}" var="supplier">
+							<form:input type ="label" path="supplier.supplierName" />
+							<a href="${supplier.supplierId}" >${supplier.supplierName}</a>
+						</c:forEach>
+					</td>
 				</c:if>
 				</tr>
 							

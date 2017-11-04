@@ -43,7 +43,7 @@
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url" value="jdbc:mysql://localhost:3306/mysql" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="root@123" />
+		<beans:property name="password" value="Admin@123" />
 
 	</beans:bean>
 
@@ -62,7 +62,7 @@
 				<beans:value>com.hrms.model.Warehouse</beans:value>
 				<beans:value>com.hrms.model.RFQItem</beans:value>	
 				<beans:value>com.hrms.model.RFQ</beans:value>
-				
+				<beans:value>com.hrms.model.RFQSupplier</beans:value>
 							
 			</beans:list>
 		</beans:property>
