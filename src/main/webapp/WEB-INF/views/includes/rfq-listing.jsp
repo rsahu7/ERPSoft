@@ -85,7 +85,6 @@ $(document).ready(function(){
 	    			   return $('<a>')
 	    				   .attr('href', '${contextroot}edit/${formName}/'+row.id) 
 	    				  /* .attr('href', '#') */
-	    				  .attr('onclick', 'viewEmp('+data+')')
 	    				  .text(data)
 	    				  .wrap('<div></div>')
 	    				  .parent()
