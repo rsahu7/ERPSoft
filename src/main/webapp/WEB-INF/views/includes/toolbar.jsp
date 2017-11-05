@@ -23,10 +23,11 @@ function openImportPage()
 </script>
 <div id="toolbar">
 		<ul class="menu">
-			<li><a href="${contextroot}add/${formcontext}"><button type="button" />Add</button></a></li>
-			<c:if test="${!empty contextroot}">
+			<li><a href="${contextroot}add/${formcontext}"><button type="button" />Add ${formcontext}</button></a></li>
+			<c:if test="${isListing == 'Yes'}">			
 			<li><a href="#" onclick="openImportPage()"><button type="button" />Import</button></a></li>
 			<li><a href="${contextroot}downloadExcel/${formcontext}"><button type="button" />Export</button></a></li>
+			<c:set var="isListing" value="No" scope="session"  />
 			</c:if>		
 		</ul>
 	</div>

@@ -16,9 +16,10 @@
 </div>
  -->
  <style>
- .menu li ul { display:none; position:absolute; } 
- .menu li:hover ul{ display:block; background:#c7c4e2; height:auto; width:auto; z-index:100} 
+ .menu li ul { display:none; position:absolute; background-color:#c7c4e2 !important; } 
+ .menu li:hover ul{ display:block; background-color:black; height:auto; width:auto; z-index:100} 
  .menu li ul li{ clear:both; border-style:none;} 
+ .menu-background {background-color : #c7c4e2}
  </style>
 
 
@@ -40,8 +41,10 @@
 			</li>
 			<li><a href="${contextroot}"><span class="iconic home"></span>Purchase</a>
 				<ul class="submenu">
-					<li><a href="${contextroot}add/RFQ">Create Quotation</a></li>
-					<li><a href="${contextroot}form/list/RFQ">Edit Quotation</a></li>
+					<li><a href="${contextroot}add/RFQ">Create Request Quotation</a></li>
+					<li><a href="${contextroot}form/list/RFQ">Edit Request Quotation</a></li>
+					<li><a href="${contextroot}form/list/PurchaseQuot">Purchase Quotation</a></li>
+					<li><a href="${contextroot}form/list/PurchaseOrd">Purchase Order</a></li>
 				</ul>
 			</li>
 			<li><a href="${contextroot}addemployee"><span class="iconic home"></span>Sales</a></li>
