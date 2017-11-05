@@ -587,5 +587,11 @@ public class FormController {
  	    }
  	       return redirectPage;   	      
    }
+    
+    @RequestMapping("/addeditsupp")
+    public String viewEmployee(Model model){
+       // model.addAttribute("employee", this.employeeService.getEmployeeById(id));
+        return  "addeditsupp";
+    }
 
 }

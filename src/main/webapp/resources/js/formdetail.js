@@ -463,6 +463,19 @@ function deletefile(test, empId)
 	});
 }
 
+function viewSupp(data) {
+	var url=data;
+	 $( "#viewdialog" ).dialog({
+    	modal: true,
+        open: function ()
+        {
+        	$("#viewdialog").load('/addeditsupp');
+        },
+        width: 500,
+        title: 'Add Edit Supplier Details'
+    });
+}
+
 function listDocData(data,empId)
 {
 	var attachData = data.split('@@@');

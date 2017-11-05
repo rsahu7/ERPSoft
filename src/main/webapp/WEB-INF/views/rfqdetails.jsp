@@ -16,7 +16,6 @@
 <script type="text/javascript" charset="utf8" src="${resourcesPath}/js/jquery-ui.js"></script>
 <script type="text/javascript" charset="utf8" src="${resourcesPath}/js/jquery.validate.min.js"></script>
 <script type="text/javascript" charset="utf8" src="${resourcesPath}/js/additional-methods.js"></script>
-<script type="text/javascript" charset="utf8" src="${resourcesPath}/js/rfq.js"></script>
 <script type="text/javascript" charset="utf8" src="${resourcesPath}/js/formdetail.js"></script>
 <link rel="stylesheet" href="${resourcesPath}/css/jquery-ui.css" />
 <link rel="stylesheet" href="${resourcesPath}/css/empdetail.css" />
@@ -144,11 +143,9 @@
 				<c:if test="${RFQ.id > 0}">				
 					<td><form:input path="items[${vs.index}].email" /></td>
 					<td>
-						<c:set var = "salary" scope = "session" value = "${items[vs.index].email}"/>
-      					<c:out value = "${salary}"/>
-						<c:forEach items="${items[vs.index].rfqSuppliers}" var="supplier">
-							<form:input type ="label" path="supplier.supplierName" />
-							<a href="${supplier.supplierId}" >${supplier.supplierName}</a>
+						<a href="${supplier.supplierId}" title="Add Supplier">+</a>
+						<c:forEach items="${RFQ.items[vs.index].rfqSuppliers}" var="supplier">
+							<a href="#" onClick="viewSupp(${RFQ.items[vs.index].rfqItemId})" >${supplier.supplierName}</a>
 						</c:forEach>
 					</td>
 				</c:if>
@@ -170,6 +167,8 @@
 				<button type="button" onClick="javascript:location.href = '${contextroot}${sessionScope.prevURL}';" />Return</button>
 			</div>
 		</form:form>
+</div>
+<div id = "viewdialog">
 </div>
 </body>
 </html>
