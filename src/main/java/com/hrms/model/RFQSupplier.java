@@ -6,9 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="rfqsuppliers")
+@Table(name="rfqsuppliers", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "internalid")})
 public class RFQSupplier {
 	
  	@Id
@@ -19,11 +21,10 @@ public class RFQSupplier {
     private String deliveryTerms;
 	private String supplierName;
     private int supplierId;
-
 	private int rfqItemId;
     private int rfqId;
     
-    public int getRfqSupplierId() {
+	public int getRfqSupplierId() {
 		return rfqSupplierId;
 	}
 	public void setRfqSupplierId(int rfqSupplierId) {

@@ -31,6 +31,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,12 +45,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hrms.helper.ExcelBuilderMain;
 import com.hrms.model.Customer;
 import com.hrms.model.Employee;
+import com.hrms.model.Interview;
 import com.hrms.model.Item;
 import com.hrms.model.LoginBean;
 import com.hrms.model.NonInventoryItem;
 import com.hrms.model.Project;
 import com.hrms.model.RFQ;
 import com.hrms.model.RFQItem;
+import com.hrms.model.RFQSupplier;
 import com.hrms.model.Supplier;
 import com.hrms.model.Warehouse;
 import com.hrms.service.EmployeeService;
@@ -589,9 +592,41 @@ public class FormController {
    }
     
     @RequestMapping("/addeditsupp")
-    public String viewEmployee(Model model){
-       // model.addAttribute("employee", this.employeeService.getEmployeeById(id));
+    public String viewRQSupp(Model model,HttpServletRequest request, HttpServletResponse response){
+    	String RFQItemId = request.getParameter("rfqItemId").toString();
+    	String RFQId = request.getParameter("rfqno").toString();
+    	System.out.println("RFQItemId : "+RFQItemId+" RFQId : "+RFQId);
+    	model.addAttribute("rfqSupplier", new RFQSupplier());
+    	model.addAttribute("listSupplier", this.formService.listSupplier());
+    	model.addAttribute("listRFQSupplier", this.formService.listRFQSupplier(RFQId,RFQItemId));
+    	model.addAttribute("RFQItemId", RFQItemId);
+		model.addAttribute("RFQId", RFQId);
         return  "addeditsupp";
+    }
+    
+  //For add and update RFQSupplier both
+  	@RequestMapping(value = "/addupdatesupp", method = RequestMethod.POST)
+  	public String addUpdateRfqSupp(@ModelAttribute("rfqSupplier") RFQSupplier rfqSupplier, BindingResult result,HttpServletRequest request, HttpServletResponse response) {
+
+  		if (rfqSupplier.getRfqSupplierId() == 0) {
+  			rfqSupplier.setRfqItemId(Integer.parseInt(request.getParameter("rfqItemId")));
+  			rfqSupplier.setRfqId(Integer.parseInt(request.getParameter("rfqId")));
+  			rfqSupplier.setSupplierId(Integer.parseInt(request.getParameter("supplierId")));
+  			rfqSupplier.setSupplierName(request.getParameter("supplierName").toString().trim());
+  			// new RFQSupplier, add it
+  			this.formService.addRfqSupplierId(rfqSupplier);
+  		} else {
+  			// existing RFQSupplier, call update
+  			this.formService.updateRfqSupplierId(rfqSupplier);
+  		}
+
+  		return "redirect:/addeditsupp?rfqno="+rfqSupplier.getRfqId()+"&rfqItemId="+rfqSupplier.getRfqItemId() ;
+
+  	}
+  	
+	@RequestMapping("/remove/{rfqSupplierId}")
+    public void removeRfqSupp(@PathVariable("rfqSupplierId") int rfqSupplierId,HttpServletRequest request, HttpServletResponse response){
+        this.formService.removeRfqSupp(rfqSupplierId);
     }
 
 }

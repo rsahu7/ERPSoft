@@ -19,6 +19,14 @@ import javax.persistence.Id;
 @Table(name="supplier")
 public class Supplier{
 
+	@Override
+	public String toString() {
+		return "Supplier [Id=" + Id + ", name=" + name + ", code=" + code + ", creationdate=" + creationdate
+				+ ", emailid=" + emailid + ", contactno=" + contactno + ", designation=" + designation + ", country="
+				+ country + ", address=" + address + ", zipcode=" + zipcode + ", payment=" + payment + ", shortname="
+				+ shortname + ", website=" + website + ", region=" + region + ", telephone=" + telephone
+				+ ", accountcode=" + accountcode + ", fax=" + fax + ", contactperson=" + contactperson + "]";
+	}
 	@Id
 	@Column(name = "internalid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

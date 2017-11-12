@@ -6,7 +6,8 @@ import javax.transaction.Transactional;
 
 import com.hrms.dao.FormDAO;
 import com.hrms.helper.Constants;
-import com.hrms.model.Employee;
+import com.hrms.model.RFQSupplier;
+import com.hrms.model.Supplier;
 
 public class FormServiceImpl implements FormService {
 
@@ -65,6 +66,38 @@ public class FormServiceImpl implements FormService {
 			itemPrefix = Constants.SUPPLIER_PREFIX_CODE;
 		
 		return itemPrefix;
+	}
+
+	@Override
+	@Transactional
+	public List<Supplier> listSupplier() {
+		return this.formDAO.listSupplier();
+	}
+
+	@Override
+	@Transactional
+	public List<RFQSupplier> listRFQSupplier(String rFQId, String rFQItemId) {
+		return this.formDAO.listRFQSupplier(rFQId,rFQItemId);
+	}
+
+	@Override
+	@Transactional
+	public void addRfqSupplierId(RFQSupplier rfqSupplier) {
+		this.formDAO.addRfqSupplierId(rfqSupplier);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateRfqSupplierId(RFQSupplier rfqSupplier) {
+		this.formDAO.updateRfqSupplierId(rfqSupplier);
+		
+	}
+
+	@Override
+	@Transactional
+	public void removeRfqSupp(int id) {
+		this.formDAO.removeRfqSupp(id);	
 	}
 	
 }

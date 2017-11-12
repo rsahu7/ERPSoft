@@ -20,7 +20,8 @@
 <link rel="stylesheet" href="${resourcesPath}/css/jquery-ui.css" />
 <link rel="stylesheet" href="${resourcesPath}/css/empdetail.css" />
 <style>
-	
+	var contextPath='<%=request.getContextPath()%>';
+	console.log(contextPath);
 </style>
 </head>
 <body>
@@ -143,9 +144,9 @@
 				<c:if test="${RFQ.id > 0}">				
 					<td><form:input path="items[${vs.index}].email" /></td>
 					<td>
-						<a href="${supplier.supplierId}" title="Add Supplier">+</a>
+						<a href="javascript:window.open(${contextroot}+'addeditsupp?rfqItemId='+${RFQ.items[vs.index].rfqItemId}+'&rfqno='+${RFQ.rfqno}, 'Add Edit Supplier Details', 'width=800,height=600');" title="Add Supplier">+</a>
 						<c:forEach items="${RFQ.items[vs.index].rfqSuppliers}" var="supplier">
-							<a href="#" onClick="viewSupp(${RFQ.items[vs.index].rfqItemId})" >${supplier.supplierName}</a>
+							<a href="javascript:window.open(${contextroot}+'addeditsupp?rfqItemId='+${RFQ.items[vs.index].rfqItemId}+'&rfqno='+${RFQ.rfqno}, 'Add Edit Supplier Details', 'width=800,height=600');">${supplier.supplierName}</a>
 						</c:forEach>
 					</td>
 				</c:if>
